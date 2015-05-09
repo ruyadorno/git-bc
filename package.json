@@ -16,6 +16,9 @@
   "files": [
     "index.js"
   ],
+  "bin": {
+    "git-bc": "./index.js"
+  },
   "keywords": [
     "git-bc",
     "git",
