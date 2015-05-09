@@ -1,0 +1,33 @@
+{
+  "name": "git-bc",
+  "version": "1.0.0",
+  "description": "Git plugin to interactively list branches and let you checkout one",
+  "repository": "ruyadorno/git-bc",
+  "author": {
+    "name": "Ruy Adorno",
+    "url": "http://ruyadorno.com"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "git-bc",
+    "git",
+    "plugin",
+    "inquirer.js",
+    "branch",
+    "checkout"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "*"
+  },
+  "license": "MIT"
+}
+
