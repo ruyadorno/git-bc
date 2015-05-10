@@ -17,7 +17,7 @@
     "index.js"
   ],
   "bin": {
-    "git-bc": "./index.js"
+    "git-bc": "./bin/git-bc"
   },
   "keywords": [
     "git-bc",
@@ -27,10 +27,12 @@
     "branch",
     "checkout"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "inquirer": "^0.8.x",
+    "simple-output": "^0.2.x"
+  },
   "devDependencies": {
     "mocha": "*"
   },
   "license": "MIT"
 }
-
