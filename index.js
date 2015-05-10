@@ -10,6 +10,8 @@ var inquirer = require('inquirer');
 
 module.exports = function gitBranchCheckout(exec, options) {
 
+  options = options || [];
+
   var result = new events.EventEmitter();
 
   function validateExec(err, stdout, stderr) {
@@ -60,7 +62,7 @@ module.exports = function gitBranchCheckout(exec, options) {
     result.emit('success', 'Switched to branch \'' + branchName.trim() + '\'');
   }
 
-  exec('git branch', onGitBranch);
+  exec(('git branch ' + options.join(' ')).trim(), onGitBranch);
 
   return result;
 };

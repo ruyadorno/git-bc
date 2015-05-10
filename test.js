@@ -30,9 +30,9 @@ it('should checkout selected branch', function (done) {
   var mockResult = {
     'git branch': {
       stdout:
-        ' * master\n' +
-        ' develop\n' +
-        ' feature-1\n'
+        '* master\n' +
+        '  develop\n' +
+        '  feature-1\n'
     },
     'git checkout develop': {
       stdout: ''
@@ -90,9 +90,9 @@ it('should be able to checkout to current branch', function (done) {
   var mockResult = {
     'git branch': {
       stdout:
-        ' * master\n' +
-        ' develop\n' +
-        ' feature-1\n'
+        '* master\n' +
+        '  develop\n' +
+        '  feature-1\n'
     },
     'git checkout master': {
       stdout: ''
@@ -108,6 +108,109 @@ it('should be able to checkout to current branch', function (done) {
 
   // Simulates user interaction
   setTimeout(function () {
+    result.prompt.rl.emit("line");
+  }, 10);
+
+});
+
+
+// ---
+
+
+it('should list remotes on -r option', function (done) {
+
+  var mockResult = {
+    'git branch -r': {
+      stdout:
+        '  origin/HEAD -> origin/master\n' +
+        '  origin/develop\n' +
+        '  origin/master\n'
+    },
+    'git checkout origin/develop': {
+      stdout: ''
+    }
+  };
+  var result = gitBc(mockExec(mockResult), ['-r']);
+
+  // Validates success message
+  result.on('success', function (msg) {
+    assert.strictEqual(msg, 'Switched to branch \'origin/develop\'');
+    done();
+  });
+
+  // Simulates user interaction
+  setTimeout(function () {
+    result.prompt.rl.emit("keypress", "", { name : "down" });
+    result.prompt.rl.emit("line");
+  }, 10);
+
+});
+
+
+// ---
+
+
+it('should list all branches when using -a option', function (done) {
+
+  var mockResult = {
+    'git branch -a': {
+      stdout:
+        '* master\n' +
+        '  develop\n' +
+        '  origin/HEAD -> origin/master\n' +
+        '  origin/develop\n' +
+        '  origin/master\n'
+    },
+    'git checkout develop': {
+      stdout: ''
+    }
+  };
+  var result = gitBc(mockExec(mockResult), ['-a']);
+
+  // Validates success message
+  result.on('success', function (msg) {
+    assert.strictEqual(msg, 'Switched to branch \'develop\'');
+    done();
+  });
+
+  // Simulates user interaction
+  setTimeout(function () {
+    result.prompt.rl.emit("keypress", "", { name : "down" });
+    result.prompt.rl.emit("line");
+  }, 10);
+
+});
+
+
+// ---
+
+
+it('should allow using multiple options at once', function (done) {
+
+  var mockResult = {
+    'git branch -a -r': {
+      stdout:
+        '* master\n' +
+        '  develop\n' +
+        '  origin/HEAD -> origin/master\n' +
+        '  origin/develop\n' +
+        '  origin/master\n'
+    },
+    'git checkout develop': {
+      stdout: ''
+    }
+  };
+  var result = gitBc(mockExec(mockResult), ['-a', '-r']);
+
+  // Validates success message
+  result.on('success', function (msg) {
+    assert.strictEqual(msg, 'Switched to branch \'develop\'');
+    done();
+  });
+
+  // Simulates user interaction
+  setTimeout(function () {
+    result.prompt.rl.emit("keypress", "", { name : "down" });
     result.prompt.rl.emit("line");
   }, 10);
 
