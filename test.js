@@ -81,3 +81,35 @@ it('should notificate errors', function (done) {
 
 });
 
+
+// ---
+
+
+it('should be able to checkout to current branch', function (done) {
+
+  var mockResult = {
+    'git branch': {
+      stdout:
+        ' * master\n' +
+        ' develop\n' +
+        ' feature-1\n'
+    },
+    'git checkout master': {
+      stdout: ''
+    }
+  };
+  var result = gitBc(mockExec(mockResult));
+
+  // Validates success message
+  result.on('success', function (msg) {
+    assert.strictEqual(msg, 'Switched to branch \'master\'');
+    done();
+  });
+
+  // Simulates user interaction
+  setTimeout(function () {
+    result.prompt.rl.emit("line");
+  }, 10);
+
+});
+

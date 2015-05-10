@@ -42,9 +42,10 @@ module.exports = function gitBranchCheckout(exec, options) {
       name: 'branches',
       message: 'Select a branch to checkout:',
       choices: branches.map(function (branchName) {
+        branchName = branchName.replace('*', '').trim();
         return {
-          name: branchName.trim(),
-          value: branchName.trim()
+          name: branchName,
+          value: branchName
         };
       })
     }], onBranchChosen);
