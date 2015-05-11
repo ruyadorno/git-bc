@@ -1,7 +1,7 @@
 {
   "name": "git-bc",
   "version": "1.0.0",
-  "description": "Git plugin to interactively list branches and let you checkout one",
+  "description": "Git plugin to interactively list branches and checkout",
   "repository": "ruyadorno/git-bc",
   "author": {
     "name": "Ruy Adorno",

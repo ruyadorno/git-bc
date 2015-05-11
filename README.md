@@ -2,7 +2,7 @@
 
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Code coverage][coveralls-image]][coveralls-url]
 
-> Git plugin to interactively list branches and checkout one
+> Git plugin to interactively list branches and checkout
 
 
 ## Install
