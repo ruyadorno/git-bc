@@ -49,11 +49,11 @@ module.exports = function gitBranchCheckout(exec, options) {
         }
       ).map(
         function formatBranchName(branchName) {
-          branchName = branchName.replace('*', '').trim();
-          branchName = branchName.split(' ')[0];
+          var branch = branchName.replace('*', '').trim();
+          branch = branch.split(' ')[0];
           return {
             name: branchName,
-            value: branchName
+            value: branch
           };
         }
       )
