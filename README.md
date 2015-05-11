@@ -13,7 +13,7 @@
 Install it using [npm](https://www.npmjs.com/):
 
 ```
-$ npm install -g git-bc
+npm install -g git-bc
 ```
 
 
