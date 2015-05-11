@@ -43,18 +43,28 @@ module.exports = function gitBranchCheckout(exec, options) {
       type: 'list',
       name: 'branches',
       message: 'Select a branch to checkout:',
-      choices: branches.map(function (branchName) {
-        branchName = branchName.replace('*', '').trim();
-        return {
-          name: branchName,
-          value: branchName
-        };
-      })
+      choices: branches.filter(
+        function filterOutDetachedMsg(branchName) {
+          return !/\(detached\ from\ .*\)/.test(branchName);
+        }
+      ).map(
+        function formatBranchName(branchName) {
+          branchName = branchName.replace('*', '').trim();
+          branchName = branchName.split(' ')[0];
+          return {
+            name: branchName,
+            value: branchName
+          };
+        }
+      )
     }], onBranchChosen);
   }
 
   function onBranchChosen(answers) {
-    exec('git checkout ' + answers.branches, onCheckout.bind(null, answers.branches));
+    exec(
+      'git checkout ' + answers.branches,
+      onCheckout.bind(null, answers.branches)
+    );
   }
 
   function onCheckout(branchName, err, stdout, stderr) {
