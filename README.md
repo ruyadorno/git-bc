@@ -10,6 +10,8 @@
 
 ## Install
 
+Install it using [npm](https://www.npmjs.com/):
+
 ```
 $ npm install -g git-bc
 ```
@@ -17,7 +19,7 @@ $ npm install -g git-bc
 
 ## Usage
 
-The most simple usage is simply invoking the command:
+Run the command:
 
 ```js
 git bc
