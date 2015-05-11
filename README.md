@@ -29,6 +29,7 @@ This will list all available branches for your repo in a interactive list, just 
 
 - `git bc -a` List all available branches
 - `git bc -r` List remote branches only
+- `git bc -h` Shows help message
 
 
 ## License

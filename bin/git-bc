@@ -2,9 +2,20 @@
 
 var exec = require('child_process').exec;
 var log = require('simple-output');
-var gitBc = require('../')(exec, process.argv.slice(2));
 
-gitBc.on('warn', log.warn);
-gitBc.on('error', log.error);
-gitBc.on('success', log.success);
+var helpMessage = require('../help-message');
+var opts = process.argv.slice(2);
+
+if (opts.indexOf('-h') > -1) {
+
+  log.message(helpMessage);
+
+} else {
+
+  var gitBc = require('../')(exec, opts);
+
+  gitBc.on('warn', log.warn);
+  gitBc.on('error', log.error);
+  gitBc.on('success', log.success);
+}
 
