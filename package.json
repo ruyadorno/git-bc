@@ -14,7 +14,9 @@
     "test": "mocha"
   },
   "files": [
-    "index.js"
+    "index.js",
+    "help-message.js",
+    "bin/git-bc"
   ],
   "bin": {
     "git-bc": "./bin/git-bc"
