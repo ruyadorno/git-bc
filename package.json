@@ -31,7 +31,7 @@
   ],
   "dependencies": {
     "inquirer": "^0.8.x",
-    "simple-output": "^0.2.x"
+    "simple-output": "^1.0.x"
   },
   "devDependencies": {
     "mocha": "*"
