@@ -6,16 +6,24 @@ var log = require('simple-output');
 var helpMessage = require('../help-message');
 var opts = process.argv.slice(2);
 
+// Prints help message
 if (opts.indexOf('-h') > -1) {
-
   log.message(helpMessage);
 
 } else {
 
+  // Starts interactive branch listing and listen for feedback
   var gitBc = require('../')(exec, opts);
 
   gitBc.on('warn', log.warn);
   gitBc.on('error', log.error);
   gitBc.on('success', log.success);
+
+  // Exits program execution on ESC keypress
+  process.stdin.on('keypress', function (ch, key) {
+    if (key && key.name === 'escape') {
+      process.exit();
+    }
+  });
 }
 
