@@ -4,6 +4,7 @@
 
 > Git plugin to interactively list branches and checkout
 
+![git-bc example image](https://cloud.githubusercontent.com/assets/220900/7557466/e7cd3866-f75f-11e4-8406-b0651ddf2ac4.gif)
 
 `git branch` + `git checkout` in a single, convenient command.
 
