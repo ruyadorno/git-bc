@@ -21,7 +21,7 @@ if (opts.indexOf('-h') > -1) {
 
   // Exits program execution on ESC keypress
   process.stdin.on('keypress', function (ch, key) {
-    if (key && (key.name === 'escape' || key.name === 'q')) {
+    if (key && (key.name === 'escape')) {
       process.exit();
     }
   });

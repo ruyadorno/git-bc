@@ -40,7 +40,7 @@ module.exports = function gitBranchCheckout(exec, options) {
 
   function promptList(branches) {
     result.prompt = inquirer.prompt([{
-      type: 'list',
+      type: 'filter',
       name: 'branches',
       message: 'Select a branch to checkout:',
       choices: branches.filter(
