@@ -39,6 +39,7 @@ module.exports = function gitBranchCheckout(exec, options) {
   }
 
   function promptList(branches) {
+    var pathSplicer =['remote/origin/','master/','xyz/'];
     result.prompt = inquirer.prompt([{
       type: 'list',
       name: 'branches',
@@ -51,6 +52,14 @@ module.exports = function gitBranchCheckout(exec, options) {
         function formatBranchName(branchName) {
           var branch = branchName.replace('*', '').trim();
           branch = branch.split(' ')[0];
+          var r = branch;
+          var i=0;
+          while(i<pathSplicer.length) {
+            r = r.split(pathSplicer[i]);
+            r = r[r.length - 1];
+            i++;
+          }
+          branch = r;
           return {
             name: branchName,
             value: branch
@@ -61,6 +70,7 @@ module.exports = function gitBranchCheckout(exec, options) {
   }
 
   function onBranchChosen(answers) {
+    //check if local branch
     exec(
       'git checkout ' + answers.branches,
       onCheckout.bind(null, answers.branches)
