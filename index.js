@@ -68,12 +68,12 @@ module.exports = function gitBranchCheckout(exec, options) {
   }
 
   function onCheckout(branchName, err, stdout, stderr) {
-    validateExec(err, stdout, stderr);
-    result.emit('success', 'Switched to branch \'' + branchName.trim() + '\'');
+    if(!validateExec(err, stdout, stderr)){
+      result.emit('success', 'Switched to branch \'' + branchName.trim() + '\'');      
+    }
   }
 
   exec(('git branch ' + options.join(' ')).trim(), onGitBranch);
 
   return result;
 };
-
