@@ -30,7 +30,7 @@
     "checkout"
   ],
   "dependencies": {
-    "inquirer": "^0.8.x",
+    "inquirer": "https://github.com/paoloantinori/Inquirer.js/tarball/f69a7de925576e9ea3c4bd49734bb6f771183676",
     "simple-output": "^1.0.x"
   },
   "devDependencies": {
