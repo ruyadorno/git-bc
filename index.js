@@ -4,6 +4,8 @@ var events = require('events');
 
 var inquirer = require('inquirer');
 
+var stripAnsi = require('strip-ansi');
+
 
 // ---
 
@@ -62,14 +64,14 @@ module.exports = function gitBranchCheckout(exec, options) {
 
   function onBranchChosen(answers) {
     exec(
-      'git checkout ' + answers.branches,
+      'git checkout ' + stripAnsi(answers.branches),
       onCheckout.bind(null, answers.branches)
     );
   }
 
   function onCheckout(branchName, err, stdout, stderr) {
     if(!validateExec(err, stdout, stderr)){
-      result.emit('success', 'Switched to branch \'' + branchName.trim() + '\'');      
+      result.emit('success', 'Switched to branch \'' + branchName.trim() + '\'');
     }
   }
 
