@@ -13,6 +13,7 @@ var stripAnsi = require('strip-ansi');
 module.exports = function gitBranchCheckout(exec, options) {
 
   options = options || [];
+  var pathSplicer =[];
 
   var result = new events.EventEmitter();
 
@@ -20,6 +21,27 @@ module.exports = function gitBranchCheckout(exec, options) {
     if (err) {
       result.emit('error', stderr);
       return true;
+    }
+  }
+  function onGitRemote(err, stdout, stderr) {
+
+    if (validateExec(err, stdout, stderr)) {
+      return;
+    }
+
+    if (stdout) {
+
+      stdout.split('\n').filter(function (line) {
+          if(line) {
+            pathSplicer.push(line + '/');
+            //result.emit('warn', 'remote found ' + line);
+          }
+          return;
+        });
+      //result.emit('warn','All remote found '+ pathSplicer);
+
+    } else {
+      result.emit('warn', 'No git remote was found');
     }
   }
 
@@ -41,6 +63,7 @@ module.exports = function gitBranchCheckout(exec, options) {
   }
 
   function promptList(branches) {
+    //var pathSplicer =['remote/origin/','master/','xyz/'];
     result.prompt = inquirer.prompt([{
       type: 'list',
       name: 'branches',
@@ -53,6 +76,12 @@ module.exports = function gitBranchCheckout(exec, options) {
         function formatBranchName(branchName) {
           var branch = branchName.replace('*', '').trim();
           branch = branch.split(' ')[0];
+          var r = branch;
+          for(var i= 0; i<pathSplicer.length; i++) {
+            r = r.split(pathSplicer[i]);
+            r = r[r.length - 1];
+          }
+          branch = r;
           return {
             name: branchName,
             value: branch
@@ -63,6 +92,7 @@ module.exports = function gitBranchCheckout(exec, options) {
   }
 
   function onBranchChosen(answers) {
+    //check if local branch
     exec(
       'git checkout ' + stripAnsi(answers.branches),
       onCheckout.bind(null, answers.branches)
@@ -74,7 +104,8 @@ module.exports = function gitBranchCheckout(exec, options) {
       result.emit('success', 'Switched to branch \'' + branchName.trim() + '\'');
     }
   }
-
+  //get remote for stripping remote branch name
+  exec('git remote', onGitRemote);
   exec(('git branch ' + options.join(' ')).trim(), onGitBranch);
 
   return result;
